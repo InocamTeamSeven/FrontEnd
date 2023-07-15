@@ -9,7 +9,11 @@ const Address = 'http://43.201.22.74/api/post';
 
 const __getLists = createAsyncThunk('getLists', async (_, thunkAPI) => {
     try {
-        const res = await axios.get('http://43.201.22.74/api/post');
+        const res = await axios.get(Address);
+<<<<<<< Updated upstream
+        console.log(res.data);
+=======
+>>>>>>> Stashed changes
         return thunkAPI.fulfillWithValue(res.data);
     } catch (error) {
         return thunkAPI.rejectWithValue(error.message);
@@ -35,30 +39,52 @@ const __postLists = createAsyncThunk('postLists', async (payload, thunkAPI) => {
         formData.append('username', payload.username);
         formData.append('password', payload.password);
 
+<<<<<<< Updated upstream
+        // image가 없으면 보내지 않음!(빈객체, 더미 파일도 x)
         if (payload.files) {
             for (let i = 0; i < payload.files.length; i++) {
                 formData.append('image', payload.files[i]);
             }
         }
 
+        // image 첨부
+        // if (payload.files) {
+        //     for (let i = 0; i < payload.files.length; i++) {
+        //         formData.append('image', payload.files[i]);
+        //     }
+        // } else {
+        //     formData.append('image', new File([], 'default.jpg'));
+        // }
+
+        // json 변환용 이미지를 제외한 나머지를 json으로 보낸다.
+=======
+        // // payload.files가 존재하면 파일을 추가
+        // if (payload.files) {
+        //     for (let i = 0; i < payload.files.length; i++) {
+        //         formData.append('image', payload.files[i]);
+        //     }
+        // } else {
+        //     // payload.files가 존재하지 않으면, 빈 파일 객체나 기본 이미지를 추가
+        //     formData.append('image', new File([], 'default.jpg'));
+        // }
+
+        for (let i = 0; i < payload.files.length; i++) {
+            formData.append('image', payload.files[i]);
+        }
+
+        // json 변환용
+>>>>>>> Stashed changes
         let jsonObject = {};
         for (const [key, value] of formData.entries()) {
             jsonObject[key] = value;
         }
         formData.append('json', JSON.stringify(jsonObject));
 
-        console.log('Json: ', JSON.stringify(jsonObject));
-        console.log('formdata: ', formData);
-
-        const response = await axios.post(
-            'http://43.201.22.74/api/post',
-            formData,
-            {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
-            }
-        );
+        const response = await axios.post(Address, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
 
         return response.data;
     } catch (error) {
