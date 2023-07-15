@@ -29,7 +29,6 @@ function AddPostForm() {
             password,
             files: fileInput.current.files,
         };
-        console.log(newList);
         const newPost = await dispatch(__postLists(newList)).unwrap();
         navigate(`/detail/${newPost.id}`);
     };

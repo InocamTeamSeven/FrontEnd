@@ -9,15 +9,12 @@ function Detail() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { id } = useParams();
-    console.log(id);
 
     const { lists, isLoading, isError } = useSelector(
         (state) => state.listSlice
     );
-    console.log(lists);
 
     const list = lists.find((list) => list.id === Number(id));
-    console.log(list);
 
     useEffect(() => {
         dispatch(__getLists());
