@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import Layout from '../components/Layout';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { __getLists } from '../redux/modules/listSlice';
-import { useState } from 'react';
 
 function Detail() {
     const dispatch = useDispatch();
@@ -33,10 +33,15 @@ function Detail() {
                 <div>{list.title}</div>
                 <div>{list.username}</div>
                 <div>{list.contents}</div>
-                <div>{list.imageurl}</div>
+                <GetImage src={list.image} />
             </div>
         </Layout>
     );
 }
 
 export default Detail;
+
+const GetImage = styled.img`
+    width: 100%;
+    height: 100%;
+`;
