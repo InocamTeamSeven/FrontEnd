@@ -1,12 +1,11 @@
 {
-	"list": [
-		{
-			"id": 12312,
-			"title": "게시글제목",
-			"contents": "게시글내용",
-			"image": "imageURL",
-			"username": "작성자명",
-			"password": "비밀번호"
-		}
-	]
+    "lists": [
+        {
+            "title": "게시글제목",
+            "contents": "게시글내용",
+            "image": "imageURL",
+            "username": "작성자명",
+            "password": "비밀번호"
+        }
+    ]
 }
