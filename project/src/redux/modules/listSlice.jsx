@@ -1,24 +1,37 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const Address = 'http://43.201.22.74/api/post';
+
 // thunk
 // ---------------------------------------------------------------------------------------------------------------------
 // lists
 
 const __getLists = createAsyncThunk('getLists', async (_, thunkAPI) => {
     try {
-        const res = await axios.get('http://localhost:4000/lists');
+        const res = await axios.get('http://43.201.22.74/api/post');
         return thunkAPI.fulfillWithValue(res.data);
     } catch (error) {
         return thunkAPI.rejectWithValue(error.message);
     }
 });
 
+//! Moking Post
+// const __postLists = createAsyncThunk('postLists', async (payload, thunkAPI) => {
+//     try {
+//         await axios.post(Address, payload);
+//         console.log(payload);
+//         return payload;
+//     } catch (error) {
+//         return thunkAPI.rejectWithValue(error.message);
+//     }
+// });
+
 const __postLists = createAsyncThunk('postLists', async (payload, thunkAPI) => {
     try {
         const formData = new FormData();
         formData.append('title', payload.title);
-        formData.append('content', payload.content);
+        formData.append('contents', payload.contents);
         formData.append('username', payload.username);
         formData.append('password', payload.password);
 
@@ -38,7 +51,7 @@ const __postLists = createAsyncThunk('postLists', async (payload, thunkAPI) => {
         console.log('formdata: ', formData);
 
         const response = await axios.post(
-            'http://43.201.22.74/post',
+            'http://43.201.22.74/api/post',
             formData,
             {
                 headers: {
@@ -57,7 +70,7 @@ const __deleteLists = createAsyncThunk(
     'deleteLists',
     async (payload, thunkAPI) => {
         try {
-            await axios.delete(`http://localhost:4000/lists/${payload}`);
+            await axios.delete(`http://43.201.22.74/post/${payload}`);
             return payload;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.message);
@@ -70,7 +83,7 @@ const __updateLists = createAsyncThunk(
     async (payload, thunkAPI) => {
         try {
             await axios.patch(
-                `http://localhost:4000/lists/${payload.id}`,
+                `http://43.201.22.74/post/${payload.id}`,
                 payload
             );
             return payload;
