@@ -68,7 +68,6 @@ const __postLists = createAsyncThunk('postLists', async (payload, thunkAPI) => {
         }
 
         // json 변환용
-
         let jsonObject = {};
         for (const [key, value] of formData.entries()) {
             jsonObject[key] = value;
