@@ -30,7 +30,7 @@ function Detail() {
                 <div>{list.title}</div>
                 <div>{list.username}</div>
                 <div>{list.contents}</div>
-                <GetImage src={list.image} />
+                <GetImage src={list.image} alt="" />
             </div>
         </Layout>
     );
