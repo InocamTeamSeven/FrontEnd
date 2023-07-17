@@ -9,7 +9,6 @@ function HomeBox() {
     const [selectedImageIndex, setSelectedImageIndex] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef(null);
-    console.log('HomeBox');
 
     const openModal = (index) => {
         setSelectedImageIndex(index);
@@ -25,11 +24,6 @@ function HomeBox() {
         if (modalRef.current === e.target) {
             closeModal();
         }
-    };
-
-    const handleImageClick = (index) => {
-        openModal(index);
-        setIsModalOpen(true);
     };
 
     if (isLoading) {
@@ -48,8 +42,8 @@ function HomeBox() {
                         <HomeBoxImage
                             src={item.image}
                             onClick={() => openModal(index)}
-                            hasImage={item.image}
-                            isModalOpen={isModalOpen} // 모달이 열려 있을 때 호버 효과 비활성화
+                            $hasImage={item.image}
+                            $isModalOpen={isModalOpen} // 모달이 열려 있을 때 호버 효과 비활성화
                         />
                     )}
                 </HomeBoxImageContainer>
@@ -59,8 +53,14 @@ function HomeBox() {
                     <ModalBackground>
                         <ModalContent>
                             <ModalImage src={data[selectedImageIndex].image} />
+                            <ModalTitle>
+                                {data[selectedImageIndex].title}
+                            </ModalTitle>
+                            <ModalText>
+                                {data[selectedImageIndex].contents}
+                            </ModalText>
+                            <Comment />
                         </ModalContent>
-                        <Comment />
                     </ModalBackground>
                 </ModalOverlay>
             )}
@@ -91,24 +91,24 @@ const HomeBoxImage = styled.img`
     transition:
         opacity 0.3s ease-in-out,
         transform 0.3s ease-in-out;
-    position: relative;
+    /* position: relative; */
 
     ${(props) =>
-        !props.hasImage &&
+        !props.$hasImage &&
         css`
             opacity: 0;
             pointer-events: none;
         `}
 
     ${(props) =>
-        props.isModalOpen &&
+        props.$isModalOpen &&
         css`
             pointer-events: none; // 모달이 열려 있을 때 호버 효과 비활성화
         `}
 
     &:hover {
         transform: scale(1.2);
-        z-index: 2; // 변경: 더 큰 값으로 설정
+        z-index: 10;
     }
 `;
 
@@ -129,6 +129,7 @@ const ModalBackground = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-bottom: 2rem;
     background-color: white;
     padding-top: 2rem;
     padding: 1rem;
@@ -138,14 +139,8 @@ const ModalBackground = styled.div`
 `;
 
 const ModalContent = styled.div`
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     max-width: 90%;
     max-height: 90%;
-
-    @media;
 `;
 
 const ModalImage = styled.img`
@@ -153,5 +148,15 @@ const ModalImage = styled.img`
     padding-top: 2rem;
     object-fit: contain;
     width: 100%;
-    height: 100%;
+    height: 50%;
+`;
+
+const ModalTitle = styled.p`
+    margin-left: 2.5rem;
+    font-size: 2rem;
+    font-weight: 500;
+`;
+
+const ModalText = styled.p`
+    margin-left: 3rem;
 `;
