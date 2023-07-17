@@ -13,6 +13,7 @@ function Header() {
             <HeaderNav>
                 <LogoImg onClick={() => navigate('/')} src={logo} />
                 <Button color="green" size="medium" name="medium" />
+
             </HeaderNav>
         </HeaderContainer>
     );
@@ -34,10 +35,6 @@ const HeaderNav = styled.div`
     height: 100%;
 `;
 
-// const SiteTitle = styled.div`
-//     font-size: 30px;
-//     font-weight: bold;
-// `;
 
 const LogoImg = styled.img`
     width: 40%;
@@ -45,4 +42,5 @@ const LogoImg = styled.img`
     height: auto;
     margin-top: 4px;
     cursor: pointer;
+
 `;

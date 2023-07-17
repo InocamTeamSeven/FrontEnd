@@ -1,11 +1,21 @@
 import React from 'react';
+
 import { useNavigate } from 'react-router';
+
 import Layout from '../components/Layout';
 import HomeBox from '../features/Home/HomeBox';
 import LocalNav from '../features/Header/LocalNav';
 import styled from 'styled-components';
 
+
 function Home() {
+
+import { useQueries, useQuery } from 'react-query';
+import { getLists } from '../api/lists';
+
+function Home() {
+    const { isLoading, isError, data } = useQuery('lists', getLists);
+
     return (
         <Layout>
             <HomeContainer>

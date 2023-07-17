@@ -12,7 +12,7 @@ function AddPostForm() {
     const [title, onChangeTitle] = useInput('');
     const [username, onChangeName] = useInput('');
     const [password, onChangePassword] = useInput('');
-    const [content, onChangeContent] = useInput('');
+    const [contents, onChangeContent] = useInput('');
 
     const onClickCancelButton = () => {
         navigate(-1);
@@ -24,14 +24,13 @@ function AddPostForm() {
         event.preventDefault();
         const newList = {
             title,
-            content,
+            contents,
             username,
             password,
             files: fileInput.current.files,
         };
-        console.log(newList);
-        await dispatch(__postLists(newList));
-        // navigate('/detail');
+        const newPost = await dispatch(__postLists(newList)).unwrap();
+        navigate(`/detail/${newPost.id}`);
     };
 
     return (
@@ -51,7 +50,7 @@ function AddPostForm() {
                         autoComplete="current-password"
                     />
                 </InputPersonal>
-                <InputContent value={content} onChange={onChangeContent} />
+                <InputContent value={contents} onChange={onChangeContent} />
             </InputContainer>
             <input
                 ref={fileInput}

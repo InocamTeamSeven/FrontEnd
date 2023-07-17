@@ -6,7 +6,6 @@ function Layout({ children }) {
     console.log('layout');
     return (
         <div>
-            <Header />
             <StLayout>{children}</StLayout>
         </div>
     );
