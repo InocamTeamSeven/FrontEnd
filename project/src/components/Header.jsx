@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import LocalNav from '../features/Header/LocalNav';
+import LocalNav from '../features/LocalNav';
 import { useNavigate } from 'react-router-dom';
 
 function Header() {
@@ -14,10 +14,10 @@ function Header() {
     return (
         <HeaderContainer>
             <HeaderNav>
-                <div>test</div>
                 <SiteTitle onClick={onClickButton}>
                     {'제목을 정해주세요!'}
                 </SiteTitle>
+                <div>test</div>
             </HeaderNav>
         </HeaderContainer>
     );
@@ -26,8 +26,9 @@ function Header() {
 export default Header;
 
 const HeaderContainer = styled.div`
-    height: 60px;
-    border-bottom: 1px solid #434040;
+    background-color: rgb(45, 207, 53);
+    height: 100px;
+    /* border-bottom: 1px solid #434040; */
 `;
 
 const HeaderNav = styled.div`

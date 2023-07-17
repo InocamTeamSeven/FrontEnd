@@ -1,13 +1,19 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { __postLists } from '../../redux/modules/listSlice';
-import useInput from '../../hooks/useInput';
+import { postLists } from '../api/lists';
+import { useMutation, useQueryClient } from 'react-query';
+import useInput from '../hooks/useInput';
 
 function AddPostForm() {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const queryClient = useQueryClient();
+    const mutation = useMutation(postLists, {
+        onSuccess: (data) => {
+            queryClient.invalidateQueries('lists');
+            navigate(`/detail/${data.id}`);
+        },
+    });
 
     const [title, onChangeTitle] = useInput('');
     const [username, onChangeName] = useInput('');
@@ -20,17 +26,16 @@ function AddPostForm() {
 
     const fileInput = useRef();
 
-    const onClickConfirmButton = async (event) => {
+    const onClickConfirmButton = (event) => {
         event.preventDefault();
-        const newList = {
+        const newLists = {
             title,
             contents,
             username,
             password,
             files: fileInput.current.files,
         };
-        const newPost = await dispatch(__postLists(newList)).unwrap();
-        navigate(`/detail/${newPost.id}`);
+        mutation.mutate(newLists);
     };
 
     return (

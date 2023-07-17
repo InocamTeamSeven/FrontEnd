@@ -1,5 +1,4 @@
 import React from 'react';
-import Header from './Header';
 import styled from 'styled-components';
 
 function Layout({ children }) {
@@ -14,9 +13,8 @@ function Layout({ children }) {
 export default Layout;
 
 const StLayout = styled.div`
-    height: 800px;
-    /* background-color: ${({ bgColor }) => {
-        return bgColor;
-    }}; */
-    padding: 50px 100px 0 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 `;
