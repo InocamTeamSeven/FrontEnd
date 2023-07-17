@@ -56,4 +56,26 @@ const postLists = async (newLists) => {
     return response.data;
 };
 
-export { getLists, postLists };
+const getComment = async () => {
+    try {
+        const response = await axios.get(
+            `${process.env.REACT_APP_SERVER_URL}/api/post`
+        );
+        return response.data;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+const postComment = async () => {
+    try {
+        const response = await axios.post(
+            `${process.env.REACT_APP_SERVER_URL}/api/post`
+        );
+        return response.data;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+};
+
+export { getLists, postLists, getComment, postComment };
