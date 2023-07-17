@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import LocalNav from '../features/LocalNav';
 import { useNavigate } from 'react-router-dom';
 import Button from './Button';
-import logo from '../assets/logo.png';
-// 로고
 
 function Header() {
     console.log('Header');
@@ -12,12 +10,11 @@ function Header() {
     return (
         <HeaderContainer>
             <HeaderNav>
-                <SiteTitle onClick={onClickButton}>
-                    {'제목을 정해주세요!'}
-                </SiteTitle>
                 <div>test</div>
-                <LogoImg onClick={() => navigate('/')} src={logo} />
-                <Button color="green" size="medium" name="medium" />
+                <LogoImg
+                    onClick={() => navigate('/')}
+                    src="../../assets/logo.png"
+                />
             </HeaderNav>
         </HeaderContainer>
     );
@@ -26,7 +23,7 @@ function Header() {
 export default Header;
 
 const HeaderContainer = styled.div`
-    background-color: rgb(45, 207, 53);
+    background-color: #292826;
     height: 100px;
     /* border-bottom: 1px solid #434040; */
 `;

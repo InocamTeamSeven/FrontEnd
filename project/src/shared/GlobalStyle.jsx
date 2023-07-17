@@ -12,7 +12,7 @@ body {
 	overflow-x: hidden;
     color: rgb (29, 29, 31);
     letter-spacing: -0.05em;
-    background-color: rgb(45, 207, 53);
+    background-color: #292826;
     margin: 0;
 
 }

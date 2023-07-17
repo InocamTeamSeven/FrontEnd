@@ -2,12 +2,14 @@ import React, { useState, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { useQuery } from 'react-query';
 import { getLists } from '../api/lists';
+import Comment from '../components/Comment';
 
 function HomeBox() {
     const { isLoading, isError, data } = useQuery('lists', getLists);
     const [selectedImageIndex, setSelectedImageIndex] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const modalRef = useRef(null);
+    console.log('HomeBox');
 
     const openModal = (index) => {
         setSelectedImageIndex(index);
@@ -38,51 +40,28 @@ function HomeBox() {
         return <h1>에러.....</h1>;
     }
 
-    console.log(data);
-    console.log('HomeBox');
     return (
         <HomeBoxStyle>
             {data.map((item, index) => (
-                <HomeBoxImageContainer key={item.id} hasImage={!!item.image}>
+                <HomeBoxImageContainer key={item.id} hasImage={item.image}>
                     {item.image && (
                         <HomeBoxImage
                             src={item.image}
                             onClick={() => openModal(index)}
-                            hasImage={!!item.image}
+                            hasImage={item.image}
+                            isModalOpen={isModalOpen} // 모달이 열려 있을 때 호버 효과 비활성화
                         />
                     )}
                 </HomeBoxImageContainer>
             ))}
             {isModalOpen && selectedImageIndex !== null && (
                 <ModalOverlay ref={modalRef} onClick={handleOutsideClick}>
-                    <ModalContent>
-                        <ModalImage src={data[selectedImageIndex].image} />
-
-                        <PrevNextButtonWrapper>
-                            <PrevButton
-                                onClick={() =>
-                                    setSelectedImageIndex((prevIndex) =>
-                                        prevIndex > 0
-                                            ? prevIndex - 1
-                                            : data.length - 1
-                                    )
-                                }
-                            >
-                                이전
-                            </PrevButton>
-                            <NextButton
-                                onClick={() =>
-                                    setSelectedImageIndex((prevIndex) =>
-                                        prevIndex < data.length - 1
-                                            ? prevIndex + 1
-                                            : 0
-                                    )
-                                }
-                            >
-                                다음
-                            </NextButton>
-                        </PrevNextButtonWrapper>
-                    </ModalContent>
+                    <ModalBackground>
+                        <ModalContent>
+                            <ModalImage src={data[selectedImageIndex].image} />
+                        </ModalContent>
+                        <Comment />
+                    </ModalBackground>
                 </ModalOverlay>
             )}
         </HomeBoxStyle>
@@ -94,7 +73,6 @@ export default HomeBox;
 const HomeBoxStyle = styled.div`
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
-
     width: 100%;
 `;
 
@@ -113,7 +91,7 @@ const HomeBoxImage = styled.img`
     transition:
         opacity 0.3s ease-in-out,
         transform 0.3s ease-in-out;
-    position: relative; /* 추가 */
+    position: relative;
 
     ${(props) =>
         !props.hasImage &&
@@ -122,9 +100,15 @@ const HomeBoxImage = styled.img`
             pointer-events: none;
         `}
 
+    ${(props) =>
+        props.isModalOpen &&
+        css`
+            pointer-events: none; // 모달이 열려 있을 때 호버 효과 비활성화
+        `}
+
     &:hover {
         transform: scale(1.2);
-        z-index: 1; /* 추가 */
+        z-index: 2; // 변경: 더 큰 값으로 설정
     }
 `;
 
@@ -140,6 +124,19 @@ const ModalOverlay = styled.div`
     align-items: center;
 `;
 
+const ModalBackground = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    padding-top: 2rem;
+    padding: 1rem;
+    width: 60%;
+    height: 100%;
+    overflow-y: scroll;
+`;
+
 const ModalContent = styled.div`
     position: relative;
     display: flex;
@@ -147,34 +144,14 @@ const ModalContent = styled.div`
     align-items: center;
     max-width: 90%;
     max-height: 90%;
+
+    @media;
 `;
 
 const ModalImage = styled.img`
-    max-width: 100%;
-    max-height: 80%;
-`;
-
-const PrevNextButtonWrapper = styled.div`
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
+    margin-top: 1rem;
+    padding-top: 2rem;
+    object-fit: contain;
     width: 100%;
-    justify-content: space-between;
-    padding: 0 1rem;
-`;
-
-const PrevButton = styled.button`
-    background-color: transparent;
-    color: white;
-    border: none;
-    cursor: pointer;
-`;
-
-const NextButton = styled.button`
-    background-color: transparent;
-    color: white;
-    border: none;
-    cursor: pointer;
+    height: 100%;
 `;
