@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router';
 import LocalNav from '../features/Header/LocalNav';
 import Button from './Button';
 import logo from '../assets/logo.png';
-
+// 로고
 function Header() {
     console.log('Header');
     const navigate = useNavigate();
