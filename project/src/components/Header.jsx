@@ -21,7 +21,7 @@ function Header() {
 export default Header;
 
 const HeaderContainer = styled.div`
-    height: 60px;
+    height: 100px;
     border-bottom: 1px solid #434040;
 `;
 
@@ -40,7 +40,7 @@ const HeaderNav = styled.div`
 // `;
 
 const LogoImg = styled.img`
-    width: 40%;
+    width: 16%;
     max-width: 200px;
     height: auto;
     margin-top: 4px;
