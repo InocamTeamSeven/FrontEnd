@@ -1,23 +1,19 @@
 import styled from 'styled-components';
+import { useNavigate } from 'react-router';
 import LocalNav from '../features/Header/LocalNav';
-import { useNavigate } from 'react-router-dom';
-
+import Button from './Button';
+import logo from '../assets/logo.png';
+// 로고
 function Header() {
     console.log('Header');
-
     const navigate = useNavigate();
-
-    const onClickButton = () => {
-        navigate('/');
-    };
 
     return (
         <HeaderContainer>
             <HeaderNav>
-                <div>test</div>
-                <SiteTitle onClick={onClickButton}>
-                    {'제목을 정해주세요!'}
-                </SiteTitle>
+                <LogoImg onClick={() => navigate('/')} src={logo} />
+                <Button color="green" size="medium" name="medium" />
+
             </HeaderNav>
         </HeaderContainer>
     );
@@ -39,8 +35,12 @@ const HeaderNav = styled.div`
     height: 100%;
 `;
 
-const SiteTitle = styled.div`
-    cursor: default;
-    font-size: 30px;
-    font-weight: bold;
+
+const LogoImg = styled.img`
+    width: 40%;
+    max-width: 200px;
+    height: auto;
+    margin-top: 4px;
+    cursor: pointer;
+
 `;
