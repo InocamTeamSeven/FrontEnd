@@ -25,7 +25,8 @@ export default Header;
 const HeaderContainer = styled.div`
     background-color: #292826;
     height: 100px;
-    /* border-bottom: 1px solid #434040; */
+    border-bottom: 1px solid #434040;
+
 `;
 
 const HeaderNav = styled.div`
@@ -38,7 +39,7 @@ const HeaderNav = styled.div`
 `;
 
 const LogoImg = styled.img`
-    width: 40%;
+    width: 16%;
     max-width: 200px;
     height: auto;
     margin-top: 4px;

@@ -1,13 +1,23 @@
 import GlobalStyle from './shared/GlobalStyle';
 import Router from './shared/Router';
-import styled from 'styled-components';
+import Buttons from './components/Buttons';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import Errorpage from './pages/Errorpage';
+import { Route } from 'react-router-dom';
 
 function App() {
     return (
-        <RootBody>
-            <GlobalStyle />
-            <Router />
-        </RootBody>
+        <div>
+            <Router>
+                <GlobalStyle />
+                <Header />
+                <Route path="/" element={<Home />} />
+                <Route path="404" element={<Errorpage />} />
+            </Router>
+            <Footer />
+        </div>
     );
 }
 export default App;
