@@ -4,6 +4,7 @@ import Buttons from './components/Buttons';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
+import Errorpage from './pages/Errorpage';
 import { Route } from 'react-router-dom';
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
                 <GlobalStyle />
                 <Header />
                 <Route path="/" element={<Home />} />
+                <Route path="404" element={<Errorpage />} />
             </Router>
             <Footer />
         </div>
