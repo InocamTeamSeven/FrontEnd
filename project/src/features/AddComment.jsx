@@ -10,9 +10,17 @@ function AddComment() {
     const [commentPassword, setCommentPassword] = useInput('');
     const mutation = useMutation(postComment, {
         onSuccess: (data) => {
-            queryClient.invalidateQueries('lists');
+            queryClient.invalidateQueries('comment');
         },
     });
+
+    const onChangeCommentName = () => (event) => {
+        setCommentUserName(event.target.value);
+    };
+
+    const onChangeCommentPassword = () => (event) => {
+        setCommentPassword(event.target.value);
+    };
 
     const onClickAddComment = () => {
         const newComments = {
@@ -27,11 +35,17 @@ function AddComment() {
             <StUser>
                 <StInput>
                     <InputInfo>{'Name '}</InputInfo>
-                    <NameInput placeholder={'이름을 입력해 주세요'} />
+                    <NameInput
+                        onChange={onChangeCommentName}
+                        placeholder={'이름을 입력해 주세요'}
+                    />
                 </StInput>
                 <StInput>
                     <InputPasswordInfo>{'Password'}</InputPasswordInfo>
-                    <UserInput placeholder={'비밀번호를 입력해 주세요'} />
+                    <UserInput
+                        onChange={onChangeCommentPassword}
+                        placeholder={'비밀번호를 입력해 주세요'}
+                    />
                 </StInput>
             </StUser>
             <StButton>

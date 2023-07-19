@@ -9,7 +9,7 @@ function CommnetList() {
 
     return (
         <div>
-            <StCommentTitle>Comment</StCommentTitle>
+            <StCommentTitle>{"Comment"}</StCommentTitle>
             <CommentContainer>
                 <Comment>123123</Comment>
                 <Comment>sdfdsf</Comment>

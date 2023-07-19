@@ -37,13 +37,13 @@ function HomeBox() {
     return (
         <HomeBoxStyle>
             {data.map((item, index) => (
-                <HomeBoxImageContainer key={item.id} hasImage={item.image}>
+                <HomeBoxImageContainer key={item.id} $hasImage={item.image}>
                     {item.image && (
                         <HomeBoxImage
                             src={item.image}
                             onClick={() => openModal(index)}
                             $hasImage={item.image}
-                            $isModalOpen={isModalOpen} // 모달이 열려 있을 때 호버 효과 비활성화
+                            $isModalOpen={isModalOpen}
                         />
                     )}
                 </HomeBoxImageContainer>
@@ -52,6 +52,10 @@ function HomeBox() {
                 <ModalOverlay ref={modalRef} onClick={handleOutsideClick}>
                     <ModalBackground>
                         <ModalContent>
+                            <UserInfo>
+                                <span>{data[selectedImageIndex].username}</span>
+                                <span>{data[selectedImageIndex].date}</span>
+                            </UserInfo>
                             <ModalImage src={data[selectedImageIndex].image} />
                             <ModalTitle>
                                 {data[selectedImageIndex].title}
@@ -80,7 +84,7 @@ const HomeBoxImageContainer = styled.div`
     position: relative;
     width: 100%;
     height: 20rem;
-    display: ${(props) => (props.hasImage ? 'block' : 'none')};
+    display: ${(props) => (props.$hasImage ? 'block' : 'none')};
 `;
 
 const HomeBoxImage = styled.img`
@@ -104,12 +108,10 @@ const HomeBoxImage = styled.img`
         props.$isModalOpen &&
         css`
             pointer-events: none; // 모달이 열려 있을 때 호버 효과 비활성화
-        `}
-
-    &:hover {
+        `} /* &:hover {
         transform: scale(1.2);
         z-index: 10;
-    }
+    } */
 `;
 
 const ModalOverlay = styled.div`
@@ -159,4 +161,9 @@ const ModalTitle = styled.p`
 
 const ModalText = styled.p`
     margin-left: 3rem;
+`;
+
+const UserInfo = styled.div`
+    display: flex;
+    justify-content: space-between;
 `;
