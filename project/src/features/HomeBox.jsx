@@ -1,18 +1,21 @@
 import React, { useState, useRef } from 'react';
 import styled, { css } from 'styled-components';
 import { useQuery } from 'react-query';
-import { getLists } from '../api/lists';
+import { getComment, getLists } from '../api/lists';
 import Comment from '../components/Comment';
 
 function HomeBox() {
     const { isLoading, isError, data } = useQuery('lists', getLists);
     const [selectedImageIndex, setSelectedImageIndex] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [post_id, setPost_Id] = useState('');
     const modalRef = useRef(null);
 
-    const openModal = (index) => {
+    const openModal = (item, index) => {
         setSelectedImageIndex(index);
         setIsModalOpen(true);
+        setPost_Id(item.id);
+        getComment(item.id);
     };
 
     const closeModal = () => {
@@ -41,7 +44,7 @@ function HomeBox() {
                     {item.image && (
                         <HomeBoxImage
                             src={item.image}
-                            onClick={() => openModal(index)}
+                            onClick={() => openModal(item, index)}
                             $hasImage={item.image}
                             $isModalOpen={isModalOpen}
                         />
@@ -63,7 +66,7 @@ function HomeBox() {
                             <ModalText>
                                 {data[selectedImageIndex].contents}
                             </ModalText>
-                            <Comment />
+                            <Comment itemid={post_id} />
                         </ModalContent>
                     </ModalBackground>
                 </ModalOverlay>

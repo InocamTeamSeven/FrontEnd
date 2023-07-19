@@ -3,11 +3,11 @@ import AddComment from '../features/AddComment';
 import styled from 'styled-components';
 import CommnetList from '../features/CommnetList';
 
-function Comment() {
+function Comment({ itemid }) {
     return (
         <div>
-            <AddComment />
-            <CommnetList />
+            <AddComment itemid={itemid} />
+            <CommnetList itemid={itemid} />
         </div>
     );
 }

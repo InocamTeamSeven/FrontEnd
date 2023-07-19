@@ -1,45 +1,46 @@
 {
-  "lists": [
-    {
-      "title": "게시글제목",
-      "contents": "게시글내용",
-      "username": "작성자명",
-      "password": "비밀번호"
-    },
-    {
-      "id": 1689402714189,
-      "title": "ㅂㅂㅂㅂ",
-      "content": "ㅂㅂㅂ",
-      "username": "ㅂㅂㅂ",
-      "password": "ㅂㅂq"
-    },
-    {
-      "id": 1689403335155,
-      "title": "123",
-      "content": "123",
-      "username": "123",
-      "password": "123"
-    },
-    {
-      "id": 1689403631131,
-      "title": "123",
-      "content": "123",
-      "username": "123",
-      "password": "123"
-    },
-    {
-      "id": 1689403745295,
-      "title": "12333",
-      "content": "313123",
-      "username": "123123",
-      "password": "1231"
-    },
-    {
-      "id": 1689404392484,
-      "title": "ㅂㅂㅂㅂ",
-      "content": "ㅂㅂㅂㅂ",
-      "username": "ㅂㅂㅂㅂㅂ",
-      "password": "q"
-    }
-  ]
+    "lists": [
+        {
+            "title": "게시글제목",
+            "contents": "게시글내용",
+            "username": "작성자명",
+            "password": "비밀번호"
+        },
+        {
+            "id": 1689402714189,
+            "title": "ㅂㅂㅂㅂ",
+            "content": "ㅂㅂㅂ",
+            "username": "ㅂㅂㅂ",
+            "password": "ㅂㅂq",
+            "commentlist": [{}]
+        },
+        {
+            "id": 1689403335155,
+            "title": "123",
+            "content": "123",
+            "username": "123",
+            "password": "123"
+        },
+        {
+            "id": 1689403631131,
+            "title": "123",
+            "content": "123",
+            "username": "123",
+            "password": "123"
+        },
+        {
+            "id": 1689403745295,
+            "title": "12333",
+            "content": "313123",
+            "username": "123123",
+            "password": "1231"
+        },
+        {
+            "id": 1689404392484,
+            "title": "ㅂㅂㅂㅂ",
+            "content": "ㅂㅂㅂㅂ",
+            "username": "ㅂㅂㅂㅂㅂ",
+            "password": "q"
+        }
+    ]
 }

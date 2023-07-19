@@ -3,7 +3,6 @@ import axios from 'axios';
 
 const instance = axios.create({
     baseURL: process.env.REACT_APP_SERVER_URL,
-    // baseURL: 'http://1.244.223.183',
 });
 
 //! GET
@@ -133,21 +132,36 @@ const onLoginAPI = async (event) => {
     }
 };
 
-const getComment = async () => {
+const getComment = async (id) => {
     try {
         const response = await axios.get(
-            `${process.env.REACT_APP_SERVER_URL}/api/post`
+            `${process.env.REACT_APP_SERVER_URL}/api/post/${id}`
         );
+        // console.log('response.data : ', response.data);
         return response.data;
     } catch (error) {
         throw new Error(error.message);
     }
 };
 
-const postComment = async () => {
+const postComment = async (payload) => {
+    // payload.preventDefault();
     try {
+        const { post_id, contents } = payload;
+        console.log(payload);
+        const authorizationCookie = localStorage.getItem('authorization');
+        // const accessToken = getCookie('accessToken');
         const response = await axios.post(
-            `${process.env.REACT_APP_SERVER_URL}/api/post`
+            `${process.env.REACT_APP_SERVER_URL}/api/post/${post_id}/comment`,
+            { contents },
+            {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: '*/*',
+                    Authorization: authorizationCookie,
+                    // Authorization: `${accessToken}`,
+                },
+            }
         );
         return response.data;
     } catch (error) {

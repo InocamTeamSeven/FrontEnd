@@ -2,54 +2,45 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import useInput from '../hooks/useInput';
 import { useMutation, useQueryClient } from 'react-query';
-import { getComment, postComment } from '../api/lists';
+import { postComment } from '../api/lists';
 
-function AddComment() {
+function AddComment({ itemid }) {
     const queryClient = useQueryClient();
-    const [commentusername, setCommentUserName] = useInput('');
-    const [commentPassword, setCommentPassword] = useInput('');
+    const [contents, setContent] = useState('');
     const mutation = useMutation(postComment, {
         onSuccess: (data) => {
             queryClient.invalidateQueries('comment');
+            alert(`${data.msg}`);
+            console.log(data);
         },
     });
 
-    const onChangeCommentName = () => (event) => {
-        setCommentUserName(event.target.value);
-    };
-
-    const onChangeCommentPassword = () => (event) => {
-        setCommentPassword(event.target.value);
+    const onChangeContents = (event) => {
+        setContent(event.target.value);
     };
 
     const onClickAddComment = () => {
-        const newComments = {
-            commentusername,
-            commentPassword,
+        if (contents.trim() === '') {
+            alert('제목, 내용, 그리고 파일을 모두 입력해주세요!');
+            return;
+        }
+
+        const newComment = {
+            post_id: itemid,
+            contents,
         };
-        mutation.mutate(newComments);
+        mutation.mutate(newComment);
+        setContent('');
     };
 
     return (
         <CommentInputContainer>
-            <StUser>
-                <StInput>
-                    <InputInfo>{'Name '}</InputInfo>
-                    <NameInput
-                        onChange={onChangeCommentName}
-                        placeholder={'이름을 입력해 주세요'}
-                    />
-                </StInput>
-                <StInput>
-                    <InputPasswordInfo>{'Password'}</InputPasswordInfo>
-                    <UserInput
-                        onChange={onChangeCommentPassword}
-                        placeholder={'비밀번호를 입력해 주세요'}
-                    />
-                </StInput>
-            </StUser>
             <StButton>
-                <CommentContentInput placeholder={'댓글을 남겨 주세요'} />
+                <CommentContentInput
+                    value={contents}
+                    placeholder={'댓글을 남겨 주세요'}
+                    onChange={onChangeContents}
+                />
                 <OnSubmit onClick={onClickAddComment}>{'submit'}</OnSubmit>
             </StButton>
         </CommentInputContainer>
